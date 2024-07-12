@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
-import pkg from 'bcryptjs';
-const { hash, compare } = pkg;
+import pkgs from 'bcryptjs';
+const { hash, compare } = pkgs;
 import pkg from 'jsonwebtoken';
 const { sign } = pkg;
 
