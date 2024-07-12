@@ -3,14 +3,14 @@
   "version": "1.0.0",
   "type":"module",
   "description": "",
-  "main": "server.mjs",
+  "main": "server.js",
   "compilerOptions": {
     "target": "ES2018",
     "module": "CommonJS"
   },
   "scripts": {
-    "start": "node server.mjs",
-    "dev": "nodemon server.mjs"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
