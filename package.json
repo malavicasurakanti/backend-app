@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "type":"module",
   "description": "",
-  "main": "server.js",
+  "main": "server.mjs",
   "compilerOptions": {
     "target": "ES2018",
     "module": "CommonJS"
