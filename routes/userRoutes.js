@@ -9,7 +9,7 @@ import {
   getAllUsers,
   deleteUser,
 } from "../controllers/userControllers.js";
-import { adminGuard, authGuard } from "../middleware/authMiddleware";
+import { adminGuard, authGuard } from "../middleware/authMiddleware.js";
 
 router.post("/register", registerUser);
 router.post("/login", loginUser);
