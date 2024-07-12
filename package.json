@@ -10,7 +10,7 @@
   },
   "scripts": {
     "start": "node server.mjs",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.mjs"
   },
   "keywords": [],
   "author": "",
