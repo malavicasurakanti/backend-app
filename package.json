@@ -1,6 +1,7 @@
 {
   "name": "backend-blog-app",
   "version": "1.0.0",
+  "type":"module",
   "description": "",
   "main": "server.js",
   "compilerOptions": {
@@ -8,8 +9,8 @@
     "module": "CommonJS"
   },
   "scripts": {
-    "start": "node -r esm server.js",
-    "dev": "nodemon -r esm server.js"
+    "start": "node server.mjs",
+    "dev": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
