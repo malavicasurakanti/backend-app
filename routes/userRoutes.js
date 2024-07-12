@@ -8,7 +8,7 @@ import {
   updateProfilePicture,
   getAllUsers,
   deleteUser,
-} from "../controllers/userControllers";
+} from "../controllers/userControllers.js";
 import { adminGuard, authGuard } from "../middleware/authMiddleware";
 
 router.post("/register", registerUser);
