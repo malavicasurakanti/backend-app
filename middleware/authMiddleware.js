@@ -3,7 +3,14 @@ const { verify } = pkg;
 import User from "../models/User.js";
 
 export const authGuard = async (req, res, next) => {
+  console.log('Request Method:', req.method);
   console.log('Authorization Header:', req.headers.authorization);
+
+  // Allow OPTIONS requests to pass through
+  if (req.method === 'OPTIONS') {
+    return next();
+  }
+
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith('Bearer')
@@ -30,11 +37,12 @@ export const authGuard = async (req, res, next) => {
     next(error);
   }
 };
+
 export const adminGuard = (req, res, next) => {
   if (req.user && req.user.admin) {
     next();
   } else {
-    let error = new Error("Not authorized as an admn");
+    let error = new Error("Not authorized as an admin");
     error.statusCode = 401;
     next(error);
   }
