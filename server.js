@@ -43,7 +43,7 @@ const corsOptions = {
   credentials: true,
   preflightContinue: false,
   optionsSuccessStatus: 204
-}));
+};
 
 app.options('*', cors(corsOptions)); // Handle OPTIONS requests globally
 app.options('*', (req, res) => {
