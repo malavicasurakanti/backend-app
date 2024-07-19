@@ -29,6 +29,9 @@ const app = express();
 app.use(express.json());
 const allowedOrigins = [process.env.FRONTEND_URL, 'http://localhost:10000', 'wwwdatavicacom.netlify.app'];
 
+
+const express = require('express');
+const cors = require('cors');
 app.use(cors({
   origin: function(origin, callback) {
     if (!origin || allowedOrigins.indexOf(origin) !== -1) {
@@ -37,7 +40,7 @@ app.use(cors({
       callback(new Error('Not allowed by CORS'));
     }
   },
-  origin: '*',
+  origin: 'wwwdatavicacom.netlify.app',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
