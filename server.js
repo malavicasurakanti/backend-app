@@ -50,10 +50,10 @@ app.get("/", (req, res) => {
   res.send("Server is running...");
 });
 
-app.use("/api/users", authGuard, userRoutes); // Protect user routes
-app.use("/api/posts", authGuard, postRoutes); // Protect post routes
-app.use("/api/comments", authGuard, commentRoutes); // Protect comment routes
-app.use("/api/post-categories", authGuard, postCategoriesRoutes); // Protect post categories routes
+app.use("/api/users", userRoutes); // Protect user routes
+app.use("/api/posts",  postRoutes); // Protect post routes
+app.use("/api/comments", commentRoutes); // Protect comment routes
+app.use("/api/post-categories",  postCategoriesRoutes); // Protect post categories routes
 app.use('/api/auth', authRoutes); // Public auth routes
 
 app.use(express.static(path.join(__dirname, "client", "build")));
