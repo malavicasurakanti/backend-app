@@ -3,13 +3,13 @@ import dotenv from "dotenv";
 import path from "path";
 import connectDB from "./config/db.js";
 import cors from "cors";
-import authRoutes from './routes/authRoutes.js';
+import authRoutes from './routes/authRoutes.js'; // Import the authRoutes
 import {
   errorResponserHandler,
   invalidPathHandler,
 } from "./middleware/errorHandler.js";
-import { authGuard, adminGuard } from './middleware/auth'; // Import the auth middleware
 
+// Routes
 import userRoutes from "./routes/userRoutes.js";
 import postRoutes from "./routes/postRoutes.js";
 import commentRoutes from "./routes/commentRoutes.js";
