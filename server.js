@@ -29,7 +29,7 @@ app.use(express.json());
 
 const allowedOrigins = [process.env.FRONTEND_URL, 'http://localhost:10000', 'https://wwwdatavicacom.netlify.app'];
 
-app.use(cors({
+const corsOptions = {
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.indexOf(origin) !== -1) {
       callback(null, true);
