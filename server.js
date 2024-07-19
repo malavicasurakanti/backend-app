@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import path from "path";
 import connectDB from "./config/db.js";
 import cors from "cors";
+import authRoutes from './routes/authRoutes.js'; // Import the authRoutes
 import {
   errorResponserHandler,
   invalidPathHandler,
@@ -46,6 +47,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/comments", commentRoutes);
 app.use("/api/post-categories", postCategoriesRoutes);
+app.use('/api/auth', authRoutes); // Use the authRoutes 
 
 // Serve static assets
 app.use(express.static(path.join(__dirname, "client", "build")));
