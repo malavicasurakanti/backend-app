@@ -38,6 +38,9 @@ app.use(cors({
       callback(new Error('Not allowed by CORS'));
     }
   },
+
+  app.options('*', cors());
+
   app.options('*', (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', req.headers.origin || '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
@@ -51,8 +54,6 @@ app.use(cors({
   preflightContinue: false,
   optionsSuccessStatus: 204
 }));
-
-app.options('*', cors());
 
 app.get("/", (req, res) => {
   res.send("Server is running...");
