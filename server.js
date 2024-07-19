@@ -37,6 +37,7 @@ app.use(cors({
       callback(new Error('Not allowed by CORS'));
     }
   },
+  origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
@@ -52,7 +53,8 @@ app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/comments", commentRoutes);
 app.use("/api/post-categories", postCategoriesRoutes);
-app.use('/api/auth', authRoutes); // Use the authRoutes 
+app.use('/api/auth', authRoutes); // Use the authRoutes
+app.options('*', cors());
 
 // Serve static assets
 app.use(express.static(path.join(__dirname, "client", "build")));
