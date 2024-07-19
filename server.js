@@ -3,13 +3,13 @@ import dotenv from "dotenv";
 import path from "path";
 import connectDB from "./config/db.js";
 import cors from "cors";
-import authRoutes from './routes/authRoutes.js'; // Import the authRoutes
+import authRoutes from './routes/authRoutes.js';
 import {
   errorResponserHandler,
   invalidPathHandler,
 } from "./middleware/errorHandler.js";
+import { authGuard, adminGuard } from './middleware/auth'; // Import the auth middleware
 
-// Routes
 import userRoutes from "./routes/userRoutes.js";
 import postRoutes from "./routes/postRoutes.js";
 import commentRoutes from "./routes/commentRoutes.js";
@@ -26,15 +26,14 @@ connectDB();
 const app = express();
 app.use(express.json());
 
-// Define allowed origins
 const allowedOrigins = [process.env.FRONTEND_URL, 'http://localhost:10000', 'https://wwwdatavicacom.netlify.app'];
 
-// CORS middleware setup
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
+      console.error(`Origin not allowed by CORS: ${origin}`);
       callback(new Error('Not allowed by CORS'));
     }
   },
@@ -45,22 +44,20 @@ app.use(cors({
   optionsSuccessStatus: 204
 }));
 
-app.options('*', cors()); // Pre-flight requests
+app.options('*', cors());
 
 app.get("/", (req, res) => {
   res.send("Server is running...");
 });
 
-app.use("/api/users", userRoutes);
-app.use("/api/posts", postRoutes);
-app.use("/api/comments", commentRoutes);
-app.use("/api/post-categories", postCategoriesRoutes);
-app.use('/api/auth', authRoutes); // Use the authRoutes
+app.use("/api/users", authGuard, userRoutes); // Protect user routes
+app.use("/api/posts", authGuard, postRoutes); // Protect post routes
+app.use("/api/comments", authGuard, commentRoutes); // Protect comment routes
+app.use("/api/post-categories", authGuard, postCategoriesRoutes); // Protect post categories routes
+app.use('/api/auth', authRoutes); // Public auth routes
 
-// Serve static assets
 app.use(express.static(path.join(__dirname, "client", "build")));
 
-// Serve index.html for any other route
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "client", "build", "index.html"), { status: 200 });
 });
