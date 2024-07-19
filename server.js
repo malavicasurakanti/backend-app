@@ -44,15 +44,13 @@ const corsOptions = {
   preflightContinue: false,
   optionsSuccessStatus: 204
 };
-
-app.options('*', cors(corsOptions)); // Handle OPTIONS requests globally
-app.options('*', (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', req.headers.origin || '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
-  res.sendStatus(204);
+app.use((req, res, next) => {
+  console.log(`Received ${req.method} request for ${req.url}`);
+  next();
 });
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // Handle OPTIONS requests globally
 app.get("/", (req, res) => {
   res.send("Server is running...");
 });
