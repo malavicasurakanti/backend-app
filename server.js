@@ -44,10 +44,9 @@ app.use(cors({
   preflightContinue: false,
   optionsSuccessStatus: 204
 }));
-app.use(cors(corsOptions));
 
-// Handle OPTIONS requests globally
-app.options('*', cors(corsOptions));
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // Handle OPTIONS requests globally
 
 app.get("/", (req, res) => {
   res.send("Server is running...");
