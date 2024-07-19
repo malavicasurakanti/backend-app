@@ -28,6 +28,8 @@ connectDB();
 const app = express();
 app.use(express.json());
 const allowedOrigins = [process.env.FRONTEND_URL, 'http://localhost:10000'];
+methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true, 
 app.use(cors({
   origin: function(origin, callback) {
     if (!origin || allowedOrigins.indexOf(origin) !== -1) {
