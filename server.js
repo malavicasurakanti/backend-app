@@ -47,9 +47,13 @@ app.use("/api/posts", postRoutes);
 app.use("/api/comments", commentRoutes);
 app.use("/api/post-categories", postCategoriesRoutes);
 
-// static assets
-app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
+// Serve static assets
+app.use(express.static(path.join(__dirname, "client", "build")));
 
+// Serve index.html for any other route
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"), { status: 200 });
+});
 app.use(invalidPathHandler);
 app.use(errorResponserHandler);
 
