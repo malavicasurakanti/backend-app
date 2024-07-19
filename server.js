@@ -8,6 +8,7 @@ import {
   errorResponserHandler,
   invalidPathHandler,
 } from "./middleware/errorHandler.js";
+import { authGuard, adminGuard } from  './middleware/auth';
 
 // Routes
 import userRoutes from "./routes/userRoutes.js";
