@@ -1,49 +1,47 @@
-import pkg from 'jsonwebtoken';
-const { verify } = pkg;
-import User from "../models/User.js";
+import { verify } from "jsonwebtoken";
+import User from "../models/User";
 
 export const authGuard = async (req, res, next) => {
-  console.log('Request Method:', req.method);
-  console.log('Authorization Header:', req.headers.authorization);
+  let token;
 
-  // Allow OPTIONS requests to pass through
-  if (req.method === 'OPTIONS') {
-    return next();
+  if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
+    token = req.headers.authorization.split(" ")[1];
   }
 
-  if (
-    req.headers.authorization &&
-    req.headers.authorization.startsWith('Bearer')
-  ) {
-    try {
-      const token = req.headers.authorization.split(' ')[1];
-      console.log('Token:', token);
-      const { id } = verify(token, process.env.JWT_SECRET);
-      console.log('User ID from Token:', id);
-      req.user = await User.findById(id).select('-password');
-      if (!req.user) {
-        throw new Error('User not found');
-      }
-      next();
-    } catch (error) {
-      console.error('Token verification error:', error.message);
-      let err = new Error('Not authorized, Token failed');
-      err.statusCode = 401;
-      next(err);
+  if (!token) {
+    return res.status(401).json({ message: "Not authorized, No token provided" });
+  }
+
+  try {
+    const decoded = verify(token, process.env.JWT_SECRET);
+    const user = await User.findById(decoded.id).select("-password");
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
     }
-  } else {
-    let error = new Error('Not authorized, No token');
-    error.statusCode = 401;
-    next(error);
+
+    req.user = user;
+    next();
+  } catch (error) {
+    console.error("Token verification error:", error);
+    if (error.name === 'JsonWebTokenError') {
+      return res.status(401).json({ message: "Not authorized, Invalid token" });
+    }
+    if (error.name === 'TokenExpiredError') {
+      return res.status(401).json({ message: "Not authorized, Token expired" });
+    }
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 
 export const adminGuard = (req, res, next) => {
-  if (req.user && req.user.admin) {
+  if (!req.user) {
+    return res.status(401).json({ message: "Not authorized, No user found" });
+  }
+  
+  if (req.user.admin) {
     next();
   } else {
-    let error = new Error("Not authorized as an admin");
-    error.statusCode = 401;
-    next(error);
+    res.status(403).json({ message: "Forbidden, Not authorized as an admin" });
   }
 };
