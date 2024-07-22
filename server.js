@@ -18,6 +18,12 @@ import postCategoriesRoutes from './routes/postCategoriesRoutes.js';
 
 // Environment configuration
 dotenv.config();
+const corsOptions = {
+  origin: 'https://api.netlify.com/build_hooks/6699448c9171a6176c37abf3',
+  optionsSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
 
 // Database connection
 connectDB();
