@@ -1,5 +1,6 @@
 // controllers/authController.js
 import User from '../models/User.js';
+
 import pkg from 'jsonwebtoken';
 const { verify } = pkg;
 
