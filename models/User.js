@@ -31,7 +31,7 @@ UserSchema.methods.generateJWT = async function () {
   return await sign({ id: this._id }, process.env.JWT_SECRET, {
     expiresIn: "30d",
   });
-}; catch (error) {
+} catch (error) {
     console.error('Error in generateJWT:', error);
     throw error;
 }
