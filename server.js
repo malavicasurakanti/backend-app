@@ -1,56 +1,25 @@
 import express from "express";
 import dotenv from "dotenv";
 import path from "path";
-import connectDB from "./config/db.js";
+import connectDB from "./config/db";
 import cors from "cors";
-import authRoutes from './routes/authRoutes.js'; // Import the authRoutes
 import {
   errorResponserHandler,
   invalidPathHandler,
-} from "./middleware/errorHandler.js";
-import { authGuard, adminGuard } from  './middleware/authMiddleware.js';
+} from "./middleware/errorHandler";
 
 // Routes
-import userRoutes from "./routes/userRoutes.js";
-import postRoutes from "./routes/postRoutes.js";
-import commentRoutes from "./routes/commentRoutes.js";
-import postCategoriesRoutes from "./routes/postCategoriesRoutes.js";
-
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+import userRoutes from "./routes/userRoutes";
+import postRoutes from "./routes/postRoutes";
+import commentRoutes from "./routes/commentRoutes";
+import postCategoriesRoutes from "./routes/postCategoriesRoutes";
 
 dotenv.config();
 connectDB();
 const app = express();
 app.use(express.json());
+app.use(cors());
 
-const allowedOrigins = [process.env.FRONTEND_URL];
-
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      console.error(`Origin not allowed by CORS: ${origin}`);
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true,
-  preflightContinue: false,
-  optionsSuccessStatus: 204
-};
-app.use((req, res, next) => {
-  console.log(`Received ${req.method} request for ${req.url}`);
-  next();
-});
-
-app.use(cors(corsOptions));
-app.options('*', cors(corsOptions)); // Handle OPTIONS requests globally
 app.get("/", (req, res) => {
   res.send("Server is running...");
 });
