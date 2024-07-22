@@ -13,6 +13,13 @@ import userRoutes from "./routes/userRoutes.js";
 import postRoutes from "./routes/postRoutes.js";
 import commentRoutes from "./routes/commentRoutes.js";
 import postCategoriesRoutes from "./routes/postCategoriesRoutes.js";
+import { fileURLToPath } from 'url';
+
+
+// Convert import.meta.url to __dirname equivalent
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 
 dotenv.config();
 connectDB();
@@ -28,6 +35,10 @@ app.use("/api/users", userRoutes); // Protect user routes
 app.use("/api/posts",  postRoutes); // Protect post routes
 app.use("/api/comments", commentRoutes); // Protect comment routes
 app.use("/api/post-categories",  postCategoriesRoutes); // Protect post categories routes
+
+// Convert import.meta.url to __dirname equivalent
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // static assets
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
