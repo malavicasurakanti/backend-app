@@ -39,7 +39,11 @@ app.use("/api/post-categories",  postCategoriesRoutes); // Protect post categori
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 {
 app.get("*", (req, res) => {
+<<<<<<< HEAD
+  res.sendFile(path.resolve(__dirname, "../frontend-app/public", "index.html"), { status: 200 });
+=======
   res.sendFile(path.resolve(__dirname, "build", "index.html"), { status: 200 });
+>>>>>>> f8c42a908a24bab534eadcf61c4df5c47ada91e7
 });
 }
 app.use(invalidPathHandler);
