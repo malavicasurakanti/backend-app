@@ -27,7 +27,7 @@ connectDB();
 const app = express();
 app.use(express.json());
 
-const allowedOrigins = [process.env.FRONTEND_URL, 'http://localhost:10000', 'https://wwwdatavicacom.netlify.app'];
+const allowedOrigins = [process.env.FRONTEND_URL];
 
 const corsOptions = {
   origin: function (origin, callback) {
