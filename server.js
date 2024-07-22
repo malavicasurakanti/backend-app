@@ -28,7 +28,9 @@ app.use("/api/users", userRoutes); // Protect user routes
 app.use("/api/posts",  postRoutes); // Protect post routes
 app.use("/api/comments", commentRoutes); // Protect comment routes
 app.use("/api/post-categories",  postCategoriesRoutes); // Protect post categories routes
-app.use('/api/auth', authRoutes); // Public auth routes
+
+// static assets
+app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
 app.use(express.static(path.join(__dirname, "client", "build")));
 
