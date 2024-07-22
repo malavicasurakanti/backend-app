@@ -16,6 +16,8 @@ const UserSchema = new Schema(
   },
   { timestamps: true }
 );
+
+
 UserSchema.pre("save", async function (next) {
   if (this.isModified("password")) {
     this.password = await hash(this.password, 10);
@@ -25,16 +27,9 @@ UserSchema.pre("save", async function (next) {
 });
 
 UserSchema.methods.generateJWT = async function () {
-  console.log('JWT_SECRET:', process.env.JWT_SECRET);
-  console.log('sign function:', sign);
-  try {
   return await sign({ id: this._id }, process.env.JWT_SECRET, {
     expiresIn: "30d",
   });
-} catch (error) {
-    console.error('Error in generateJWT:', error);
-    throw error;
-}
 };
 
 UserSchema.methods.comparePassword = async function (enteredPassword) {
@@ -43,3 +38,4 @@ UserSchema.methods.comparePassword = async function (enteredPassword) {
 
 const User = model("User", UserSchema);
 export default User;
+
