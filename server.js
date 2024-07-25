@@ -42,16 +42,8 @@ app.use('/api/posts', postRoutes);
 app.use('/api/comments', commentRoutes);
 app.use('/api/post-categories', postCategoriesRoutes);
 
-// Serve frontend static files
-const frontendPath = path.join(__dirname, '../frontend-app/build');
-app.use(express.static(frontendPath));
-
-// Handle SPA (Single Page Application) - all other routes should serve the frontend's index.html app.get('*', (req, res) => {res.sendFile(path.resolve(, 'index.html'));});
-app.use(express.static(path.join(__dirname, 'build')));
-
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
+// static assets
+app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
 app.listen(9000);
 
