@@ -27,8 +27,8 @@ const app = express();
 app.use(express.json());
 app.use(cors( // Enable CORS
  {
-  origin: ['https://frontend-80y2vu8qe-malavicasurakantis-projects.vercel.app',]
-  methods:['POST','GET','PUT','DELETE']
+  origin: ['https://frontend-80y2vu8qe-malavicasurakantis-projects.vercel.app'],
+  methods:['POST','GET','PUT','DELETE'],
   credentials: true
 });
 
