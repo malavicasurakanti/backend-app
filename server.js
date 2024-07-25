@@ -25,17 +25,12 @@ const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(cors()); // Enable CORS
-const corsOptions = {
-  origin: ['https://datavica.com/login', 'https://api.render.com/deploy/srv-cqh3jics1f4s73biolpg?key=VLtBWN4Ritw',]
-  optionsSuccessStatus: 200,
-};
-app.use(cors(corsOptions));
-
-// Serve static files
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+app.use(cors( // Enable CORS
+ {
+  origin: ['https://frontend-80y2vu8qe-malavicasurakantis-projects.vercel.app',]
+  methods:['POST','GET','PUT','DELETE']
+  credentials: true
+});
 
 // Basic route
 app.get('/', (req, res) => {
