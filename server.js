@@ -41,16 +41,11 @@ app.use('/api/users', userRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/comments', commentRoutes);
 app.use('/api/post-categories', postCategoriesRoutes);
-
-// static assets
-app.use("/uploads", express.static(path.join( origin, "/uploads")));
-
-app.listen(9000);
-
+{
 // Error handling middleware
 app.use(invalidPathHandler);
 app.use(errorResponserHandler);
-
+}
 // Start the server
 const PORT = process.env.PORT || 9000;
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
