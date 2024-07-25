@@ -27,7 +27,7 @@ const app = express();
 app.use(express.json());
 app.use(cors()); // Enable CORS
 const corsOptions = {
-  origin: 'https://api.netlify.com/build_hooks/6699448c9171a6176c37abf3',
+  origin: ['https://datavica.com/login', 'https://api.render.com/deploy/srv-cqh3jics1f4s73biolpg?key=VLtBWN4Ritw',]
   optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
@@ -52,15 +52,19 @@ app.use('/api/post-categories', postCategoriesRoutes);
 const frontendPath = path.join(__dirname, '../frontend-app/build');
 app.use(express.static(frontendPath));
 
-// Handle SPA (Single Page Application) - all other routes should serve the frontend's index.html
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(frontendPath, 'index.html'));
+// Handle SPA (Single Page Application) - all other routes should serve the frontend's index.html app.get('*', (req, res) => {res.sendFile(path.resolve(, 'index.html'));});
+app.use(express.static(path.join(__dirname, 'build')));
+
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
+
+app.listen(9000);
 
 // Error handling middleware
 app.use(invalidPathHandler);
 app.use(errorResponserHandler);
 
 // Start the server
-const PORT = process.env.PORT || 10000;
+const PORT = process.env.PORT || 9000;
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
