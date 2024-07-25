@@ -43,7 +43,7 @@ app.use('/api/comments', commentRoutes);
 app.use('/api/post-categories', postCategoriesRoutes);
 
 // static assets
-app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
+app.use("/uploads", express.static(path.join( origin, "/uploads")));
 
 app.listen(9000);
 
