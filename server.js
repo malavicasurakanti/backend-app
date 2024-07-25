@@ -7,12 +7,13 @@ import {
   errorResponserHandler,
   invalidPathHandler,
 } from './middleware/errorHandler.js';
+i mport { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
-// Routes
-import userRoutes from './routes/userRoutes.js';
-import postRoutes from './routes/postRoutes.js';
-import commentRoutes from './routes/commentRoutes.js';
-import postCategoriesRoutes from './routes/postCategoriesRoutes.js';
+// ... other imports ...
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // Environment configuration
 {dotenv.config()};
@@ -41,6 +42,10 @@ app.use('/api/comments', commentRoutes);
 app.use('/api/post-categories', postCategoriesRoutes);
 // static assets
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
+// ... rest of your server setup ...
+
+app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
+
 
 {
 // Error handling middleware
