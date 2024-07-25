@@ -25,12 +25,12 @@ const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(cors( // Enable CORS
+app.use(cors) // Enable CORS
  {
   origin: ['https://frontend-80y2vu8qe-malavicasurakantis-projects.vercel.app'],
   methods:['POST','GET','PUT','DELETE'],
   credentials: true
-});
+};
 
 // Basic route
 app.get('/', (req, res) => {
