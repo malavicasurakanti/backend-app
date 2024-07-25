@@ -7,7 +7,7 @@ import {
   errorResponserHandler,
   invalidPathHandler,
 } from './middleware/errorHandler.js';
-i mport { fileURLToPath } from 'url';
+import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
 // ... other imports ...
