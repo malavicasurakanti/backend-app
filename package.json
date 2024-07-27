@@ -1,6 +1,5 @@
 {
   "name": "backend-blog-app",
-  "type": "module",
   "main": "server.js",
   "compilerOptions": {
     "target": "ES2018",
