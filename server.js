@@ -7,13 +7,6 @@ import {
   errorResponserHandler,
   invalidPathHandler,
 } from './middleware/errorHandler.js';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
-
-// ... other imports ...
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
 // Environment configuration
 {dotenv.config()};
@@ -43,9 +36,6 @@ app.use('/api/post-categories', postCategoriesRoutes);
 // static assets
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 // ... rest of your server setup ...
-
-app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
-
 
 {
 // Error handling middleware
