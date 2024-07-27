@@ -24,7 +24,7 @@ export const loginUser = async (req, res) => {
 const generateToken = (userId) => {
   const payload = { id: userId };
   const secret = process.env.JWT_SECRET;
-  const options = { expiresIn: '30d' };
+  const options = { expiresIn: '1h' };
 
   return jwt.sign(payload, secret, options);
 };
